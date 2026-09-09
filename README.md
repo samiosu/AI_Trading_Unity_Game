@@ -6,6 +6,11 @@ AIモデルを使用して生成した株価をもとに投資の売買を行う
 
 # ThirdPirty
 [Third-Pirty-License](.\Third-Pirty-License.md)
-- [XCharts](https://github.com/XCharts-Team/XCharts)
+
+[XCharts](https://github.com/XCharts-Team/XCharts)
 
 ローソク足チャートに使用しました。
+
+[Noto Sans Japanese](https://fonts.google.com/noto/specimen/Noto+Sans+JP)
+
+フォントに使用しました。
