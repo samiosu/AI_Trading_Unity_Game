@@ -1,4 +1,4 @@
-[XChart](https://github.com/XCharts-Team/XCharts)
+[XCharts](https://github.com/XCharts-Team/XCharts)
 
 MIT License
 
