@@ -590,7 +590,25 @@ PlayerSettings:
   webGLCloseOnQuit: 0
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    EmbeddedLinux: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    GameCoreScarlett: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    GameCoreXboxOne: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    Kepler: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    LinuxHeadlessSimulation: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    Nintendo Switch: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    Nintendo Switch 2: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    PS4: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    PS5: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    QNX: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    Standalone: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro;SENTIS_ANALYTICS_ENABLED;APP_UI_EDITOR_ONLY
+    VisionOS: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    WebGL: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    Windows Store Apps: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    XboxOne: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    iPhone: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
+    tvOS: INPUT_SYSTEM_ENABLED;dUI_TextMeshPro
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -687,7 +705,7 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 2
+  activeInputHandler: 1
   windowsGamepadBackendHint: 0
   cloudProjectId: a1bc07a4-926e-48f0-9400-35c2ae247ff9
   framebufferDepthMemorylessMode: 0

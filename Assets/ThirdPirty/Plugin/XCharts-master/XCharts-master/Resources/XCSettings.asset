@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: XCSettings
   m_EditorClassIdentifier: 
   m_Lang: {fileID: 11400000, guid: 79b252423c47d4cf380e489ed55e05d4, type: 2}
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: b6979f844adb3b44abdbeb65c30e0fcb, type: 3}
+  m_TMPFont: {fileID: 11400000, guid: 5c63f4e3847182b46b6bc8d228b8143c, type: 2}
   m_FontSizeLv1: 24
   m_FontSizeLv2: 22
   m_FontSizeLv3: 20
