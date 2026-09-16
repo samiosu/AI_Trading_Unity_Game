@@ -1,0 +1,8 @@
+{
+    "name": "AITrading.AI",
+    "rootNamespace": "AITrading.AI",
+    "references": ["Unity.InferenceEngine"],
+    "overrideReferences": true,
+    "precompiledReferences": ["Newtonsoft.Json.dll"],
+    "autoReferenced": true
+}

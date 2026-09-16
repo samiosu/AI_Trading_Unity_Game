@@ -1,0 +1,4 @@
+<linker>
+    <!-- Newtonsoft.Jsonで読み込む型・フィールドをIL2CPPのstrippingから保護します。 -->
+    <assembly fullname="AITrading.AI" preserve="all" />
+</linker>
