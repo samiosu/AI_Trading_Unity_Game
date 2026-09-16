@@ -1,6 +1,7 @@
 using System;
 using Unity.InferenceEngine;
 using UnityEngine;
+using UnityEngine.Android;
 
 namespace AITrading.AI
 {
@@ -32,6 +33,7 @@ namespace AITrading.AI
         private StockMarketResidualSampler sampler;
         private float[] rawWindow;
         private float[] latestBar;
+
 
         public bool IsInitialized => predictor != null;
         public bool IsStochastic => predictor != null && predictor.IsStochastic;

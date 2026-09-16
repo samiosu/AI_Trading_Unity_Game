@@ -6,18 +6,9 @@ public class MarketController : MonoBehaviour
     [SerializeField] private StockMarketOnnxRunner market;
 
     // ゲームの「次の日」処理などから呼び出す。
-    public float[] AdvanceDay(int sectorIndex)
+    public void AdvanceDay()
     {
-        float[] bar = market.GenerateNextBar();
-        int offset = sectorIndex * 5;
-        float open = bar[offset];
-        float high = bar[offset + 1];
-        float low = bar[offset + 2];
-        float close = bar[offset + 3];
-        float volume = bar[offset + 4];
-        float[] sectorBar = new float[] { open, high, low, close, volume };
-        Debug.Log(sectorBar[0]);
-        return sectorBar;    
+        market.GenerateNextBar();  
     }
 
     public void RestartAsBearMarket()
@@ -32,6 +23,11 @@ public class MarketController : MonoBehaviour
     public void RestartAsScenario(string scenarioId)
     {
         RestartAsScenario(scenarioId, null);
+    }
+
+    public StockMarketOnnxRunner getMarket()
+    {
+        return market;
     }
 
     /// <summary>

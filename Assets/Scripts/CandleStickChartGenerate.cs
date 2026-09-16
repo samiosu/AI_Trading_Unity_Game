@@ -10,6 +10,7 @@ public class CandleStickChartGenerate : MonoBehaviour
     // 既存のボタン接続や外部スクリプトから参照できるよう公開する。
     public CandlestickChart chart;
     [SerializeField] private MarketController marketController;
+    private StockPrice stockPrice;
 
     [Header("表示設定")]
     [Tooltip("表示するキャンドル本数。超えた場合は古いデータから削除します。")]
@@ -20,15 +21,18 @@ public class CandleStickChartGenerate : MonoBehaviour
     [Range(0.1f, 1f)]
     [SerializeField] private float candleWidthRatio = 0.9f;
 
-    private readonly List<float[]> candleData = new List<float[]>();
+    private float[,] selectSectorBar;
 
     public int VisibleCandleCount => visibleCandleCount;
-    public int RenderedCandleCount => candleData.Count;
 
     private void Start()
     {
         // CandlestickChartのサンプルデータを消し、生成データだけを表示する。
         ClearChart();
+        stockPrice = StockPrice.getInstance();
+        stockPrice.setMarket(marketController.getMarket());
+        stockPrice.changeBarAndSectorBar();
+        SetVisibleCandleCount();
     }
 
     /// <summary>
@@ -41,32 +45,19 @@ public class CandleStickChartGenerate : MonoBehaviour
             return;
         }
 
-        float[] bar = marketController.AdvanceDay(0);
-        candleData.Add(bar);
+        marketController.AdvanceDay();
 
-        int maxCount = Mathf.Max(1, visibleCandleCount);
-        int removeCount = candleData.Count - maxCount;
-        if (removeCount > 0)
-        {
-            candleData.RemoveRange(0, removeCount);
-        }
-
+        stockPrice.changeBarAndSectorBar();
+        selectSectorBar = stockPrice.getSectorBar(visibleCandleCount);
         Redraw(serie);
     }
 
     /// <summary>
     /// Inspectorや別UIから表示本数を変更する場合に呼び出します。
     /// </summary>
-    public void SetVisibleCandleCount(int count)
+    public void SetVisibleCandleCount()
     {
-        visibleCandleCount = Mathf.Max(1, count);
-
-        int removeCount = candleData.Count - visibleCandleCount;
-        if (removeCount > 0)
-        {
-            candleData.RemoveRange(0, removeCount);
-        }
-
+        selectSectorBar = stockPrice.getSectorBar(visibleCandleCount);
         if (TryGetSerie(out Candlestick serie))
         {
             Redraw(serie);
@@ -78,7 +69,7 @@ public class CandleStickChartGenerate : MonoBehaviour
     /// </summary>
     public void ClearChart()
     {
-        candleData.Clear();
+        selectSectorBar = null;
         if (chart != null)
         {
             chart.ClearData();
@@ -126,14 +117,16 @@ public class CandleStickChartGenerate : MonoBehaviour
         }
 
         chart.ClearData();
-        for (int index = 0; index < candleData.Count; index++)
+        for (int index = 0; index < selectSectorBar.GetLength(0); index++)
         {
-            float[] bar = candleData[index];
-
             // AddDataの並びは X, Open, Close, Low, High。
             // MarketControllerの戻り値は Open, High, Low, Close, Volume。
             chart.AddXAxisData("x" + index, serie.xAxisIndex);
-            chart.AddData(serie.index, index, bar[0], bar[3], bar[2], bar[1]);
+            chart.AddData(serie.index, index,
+                selectSectorBar[index, 0],
+                selectSectorBar[index, 3],
+                selectSectorBar[index, 2],
+                selectSectorBar[index, 1]);
         }
     }
 }
