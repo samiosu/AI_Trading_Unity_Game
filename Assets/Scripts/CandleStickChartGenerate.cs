@@ -25,20 +25,42 @@ public class CandleStickChartGenerate : MonoBehaviour
 
     public int VisibleCandleCount => visibleCandleCount;
 
+    private NextDayEvent nextDayEvent;
+    private GlobalStatus globalStatus;
+    private void Awake()
+    {
+        stockPrice = StockPrice.getInstance();
+        nextDayEvent = NextDayEvent.GetInstance();
+        globalStatus = GlobalStatus.GetInstance();
+        stockPrice.setMarket(marketController.getMarket());
+    }
     private void Start()
     {
         // CandlestickChartのサンプルデータを消し、生成データだけを表示する。
         ClearChart();
-        stockPrice = StockPrice.getInstance();
-        stockPrice.setMarket(marketController.getMarket());
-        stockPrice.changeBarAndSectorBar();
         SetVisibleCandleCount();
+    }
+    private void OnEnable()
+    {
+        nextDayEvent.nextDay += AdvanceGraph;
+        globalStatus.IdChanged += SetVisibleCandleCount;
+    }
+    private void OnDisable()
+    {
+        nextDayEvent.nextDay -= AdvanceGraph;
+        globalStatus.IdChanged -= SetVisibleCandleCount;
     }
 
     /// <summary>
     /// ボタンから呼び出し、1日分を追加して最新N本を再描画します。
     /// </summary>
     public void OnButton()
+    {
+        nextDayEvent.DoThing();
+    }
+
+    // 1日進め・描画を更新する
+    private void AdvanceGraph()
     {
         if (!TryGetSerie(out Candlestick serie))
         {

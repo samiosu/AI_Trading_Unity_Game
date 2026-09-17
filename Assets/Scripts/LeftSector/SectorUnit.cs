@@ -7,12 +7,27 @@ public class SectorUnit:MonoBehaviour
     [SerializeField] private TMP_Text priceTMP;
     [SerializeField] private TMP_Text percentageTMP;
     private StockPrice stockPrice;
-    
-    public void Start()
+    private NextDayEvent nextDayEvent;
+    private GlobalStatus globalStatus;
+    public void Awake()
     {
         stockPrice = StockPrice.getInstance();
+        nextDayEvent = NextDayEvent.GetInstance();
+        globalStatus = GlobalStatus.GetInstance();
     }
-    // TODO:日付が変わるたびに呼び出す
+    public void Start()
+    {
+        updateBar();
+    }
+
+    private void OnEnable()
+    {
+        nextDayEvent.nextDay += updateBar;
+    }
+    private void OnDisable()
+    {
+        nextDayEvent.nextDay -= updateBar;
+    }
     public void updateBar()
     {
         float[] bar = stockPrice.getBar();
@@ -27,7 +42,6 @@ public class SectorUnit:MonoBehaviour
     // sectorのPanelが押されたときの処理
     public void OnButton()
     {
-        GlobalStatus.SectorId = id;
-        // MEMO:ここにCandleStickChartGenerateでローソク足チャートを生成するように指示するかも？
+        globalStatus.SectorId = id;
     }
 }

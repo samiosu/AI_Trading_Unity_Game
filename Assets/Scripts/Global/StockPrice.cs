@@ -11,7 +11,7 @@ public class StockPrice
 
     private static StockPrice stockPrice;
 
-
+    private static GlobalStatus globalStatus;
 
     public static StockPrice getInstance()
     {
@@ -23,7 +23,9 @@ public class StockPrice
     }
     public void setMarket(StockMarketOnnxRunner market)
     {
-        this.market = market;        
+        this.market = market;
+        globalStatus = GlobalStatus.GetInstance();
+        stockPrice.changeBarAndSectorBar();     
     }
 
     public void destroyInstance()
@@ -77,7 +79,7 @@ public class StockPrice
         {
             for(int j = 0; j < sectorBar.GetLength(2); j++)
             {
-                ans[i,j] = sectorBar[GlobalStatus.SectorId, offset + i, j];
+                ans[i,j] = sectorBar[globalStatus.SectorId, offset + i, j];
             }
             
         }
