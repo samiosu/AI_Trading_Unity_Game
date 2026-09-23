@@ -132,9 +132,13 @@ public class CandleStickChartGenerate : MonoBehaviour
         serie.barMaxWidth = 0f;
 
         YAxis yAxis = chart.GetChartComponent<YAxis>(serie.yAxisIndex);
-        if (yAxis != null && yAxis.minMaxType == Axis.AxisMinMaxType.Default)
+        if (yAxis != null)
         {
-            yAxis.minMaxType = Axis.AxisMinMaxType.MinMax;
+            yAxis.axisLabel.numericFormatter = "F0";
+            if (yAxis.minMaxType == Axis.AxisMinMaxType.Default)
+            {
+                yAxis.minMaxType = Axis.AxisMinMaxType.MinMax;
+            }
         }
 
         chart.ClearData();
