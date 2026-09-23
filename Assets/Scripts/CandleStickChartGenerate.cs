@@ -51,6 +51,16 @@ public class CandleStickChartGenerate : MonoBehaviour
     }
     private void Start()
     {
+        // マウスオーバー時に系列名やデータのポップアップを表示しない。
+        if (chart != null)
+        {
+            XCharts.Runtime.Tooltip tooltip = chart.GetChartComponent<XCharts.Runtime.Tooltip>();
+            if (tooltip != null)
+            {
+                tooltip.show = false;
+            }
+        }
+
         // CandlestickChartのサンプルデータを消し、生成データだけを表示する。
         ClearChart();
         SetVisibleCandleCount();
