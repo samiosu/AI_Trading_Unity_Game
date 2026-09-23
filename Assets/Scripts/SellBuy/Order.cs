@@ -13,7 +13,6 @@ public class Order : MonoBehaviour
     {
         globalStatus = GlobalStatus.GetInstance();
         stockPrice = StockPrice.getInstance();
-        sectorHoldUI.UpdateUI();
     }
 
     public void OnButton()
@@ -21,7 +20,16 @@ public class Order : MonoBehaviour
         float[] bar = stockPrice.getBar();
         // 指定セクターの最新のCloseデータを取得する。
         float pricePerUnit = bar[3248 + globalStatus.SectorId * 5];
+        if (isBuy)
+        {
         globalStatus.StockHoldings[globalStatus.SectorId].ChangeStockHoldings(amount.StockAmount, pricePerUnit);
+            globalStatus.funds -= (int)(amount.StockAmount * pricePerUnit);
+        }
+        else
+        {
+        globalStatus.StockHoldings[globalStatus.SectorId].ChangeStockHoldings(-amount.StockAmount, pricePerUnit);
+            globalStatus.funds += (int)(amount.StockAmount * pricePerUnit);
+        }            
         amount.ResetAmount();
         sectorHoldUI.UpdateUI();
     }

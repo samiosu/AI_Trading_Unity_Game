@@ -9,6 +9,7 @@ public class SectorHoldUI : MonoBehaviour
     [SerializeField] TMP_Text price;
     [SerializeField] TMP_Text profitAndLoss;
     [SerializeField] TMP_Text profitAndLossRation;
+    [SerializeField] TMP_Text funds;
     private GlobalStatus globalStatus;
     private NextDayEvent nextDayEvent;
     
@@ -16,6 +17,11 @@ public class SectorHoldUI : MonoBehaviour
     {
         globalStatus = GlobalStatus.GetInstance();
         nextDayEvent = NextDayEvent.GetInstance();
+    }
+    public void Start()
+    {
+        globalStatus.funds = 1000000;
+        UpdateUI();
     }
     public void OnEnable()
     {
@@ -37,5 +43,6 @@ public class SectorHoldUI : MonoBehaviour
         price.SetText($"{unit.Price}");
         profitAndLoss.SetText($"{unit.ProfitAndLoss}");
         profitAndLossRation.SetText($"{unit.ProfitAndLossRation:F2}%");
+        funds.SetText($"{globalStatus.funds}");
     }
 }

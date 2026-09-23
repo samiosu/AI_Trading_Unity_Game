@@ -4,6 +4,7 @@ public class GlobalStatus
 {
     private static GlobalStatus globalStatus;
     private int sectorId;
+    public int funds; // 買付余力
     public event Action IdChanged;
     public StockHoldings[] StockHoldings = new StockHoldings[11];
     public static GlobalStatus GetInstance()

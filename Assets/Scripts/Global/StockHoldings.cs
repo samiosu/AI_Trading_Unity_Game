@@ -1,3 +1,5 @@
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+
 public class StockHoldings
 {
     public int Amount { get; private set; }
@@ -18,8 +20,13 @@ public class StockHoldings
     // 新規購入時・売却時に変化させるデータ
     public void ChangeStockHoldings(int amount, float costPerUnit)
     {
+        if(Amount + amount == 0)
+        {
+            Amount = 0;
+            CostPerUnit = 0;
+        }
         // 既に保有分がある
-        if(Amount != 0)
+        else if(Amount != 0)
         {
             CostPerUnit = (int)(Amount * CostPerUnit + amount * costPerUnit) / (Amount + amount);
             Amount += amount;
