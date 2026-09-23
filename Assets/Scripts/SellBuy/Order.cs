@@ -22,13 +22,29 @@ public class Order : MonoBehaviour
         float pricePerUnit = bar[3248 + globalStatus.SectorId * 5];
         if (isBuy)
         {
-        globalStatus.StockHoldings[globalStatus.SectorId].ChangeStockHoldings(amount.StockAmount, pricePerUnit);
-            globalStatus.funds -= (int)(amount.StockAmount * pricePerUnit);
+            // 購入可能条件
+            if(globalStatus.funds >= amount.StockAmount * pricePerUnit)
+            {
+                globalStatus.StockHoldings[globalStatus.SectorId].ChangeStockHoldings(amount.StockAmount, pricePerUnit);
+                globalStatus.funds -= (int)(amount.StockAmount * pricePerUnit);
+            }
+            else
+            {
+                Debug.Log("購入不可");
+            }
         }
         else
         {
-        globalStatus.StockHoldings[globalStatus.SectorId].ChangeStockHoldings(-amount.StockAmount, pricePerUnit);
-            globalStatus.funds += (int)(amount.StockAmount * pricePerUnit);
+            // 売却可能条件
+            if(amount.StockAmount <= globalStatus.StockHoldings[globalStatus.SectorId].Amount)
+            {
+                globalStatus.StockHoldings[globalStatus.SectorId].ChangeStockHoldings(-amount.StockAmount, pricePerUnit);
+                globalStatus.funds += (int)(amount.StockAmount * pricePerUnit);
+            }
+            else
+            {
+                Debug.Log("売却不可");
+            }
         }            
         amount.ResetAmount();
         sectorHoldUI.UpdateUI();
