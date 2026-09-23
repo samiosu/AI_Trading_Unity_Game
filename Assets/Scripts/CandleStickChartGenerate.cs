@@ -7,6 +7,21 @@ using XCharts.Runtime;
 /// </summary>
 public class CandleStickChartGenerate : MonoBehaviour
 {
+    private static readonly string[] SectorNames =
+    {
+        "エネルギー",
+        "素材",
+        "資本財",
+        "一般消費財",
+        "生活必需品",
+        "ヘルスケア",
+        "金融",
+        "情報技術",
+        "情報サービス",
+        "公益事業",
+        "不動産"
+    };
+
     // 既存のボタン接続や外部スクリプトから参照できるよう公開する。
     public CandlestickChart chart;
     [SerializeField] private MarketController marketController;
@@ -39,14 +54,36 @@ public class CandleStickChartGenerate : MonoBehaviour
         // CandlestickChartのサンプルデータを消し、生成データだけを表示する。
         ClearChart();
         SetVisibleCandleCount();
+        UpdateChartTitle();
     }
     private void OnEnable()
     {
+        globalStatus.IdChanged += UpdateChartTitle;
         globalStatus.IdChanged += SetVisibleCandleCount;
     }
     private void OnDisable()
     {
+        globalStatus.IdChanged -= UpdateChartTitle;
         globalStatus.IdChanged -= SetVisibleCandleCount;
+    }
+
+    private void UpdateChartTitle()
+    {
+        if (chart == null)
+        {
+            Debug.LogError("Chartを設定してください。", this);
+            return;
+        }
+
+        int sectorId = globalStatus.SectorId;
+        if (sectorId < 0 || sectorId >= SectorNames.Length)
+        {
+            Debug.LogWarning($"未対応のセクターIDです: {sectorId}", this);
+            return;
+        }
+
+        Title title = chart.EnsureChartComponent<Title>();
+        title.text = SectorNames[sectorId];
     }
 
     /// <summary>
