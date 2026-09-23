@@ -47,7 +47,7 @@ public class StockHoldings
         if(Amount != 0)
         {
             Price = (int)(Amount * pricePerUnit);
-            ProfitAndLoss = Amount * CostPerUnit - Price;
+            ProfitAndLoss = Price - Amount * CostPerUnit;
             ProfitAndLossRation = (pricePerUnit - CostPerUnit) / CostPerUnit * 100;
         }
         else

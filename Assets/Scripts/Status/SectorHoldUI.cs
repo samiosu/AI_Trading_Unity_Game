@@ -31,6 +31,7 @@ public class SectorHoldUI : MonoBehaviour
     public void UpdateUI()
     {
         StockHoldings unit = globalStatus.StockHoldings[globalStatus.SectorId];
+        unit.ChangeValue();
         amount.SetText($"{unit.Amount}");
         costPerUnit.SetText($"{unit.CostPerUnit}");
         price.SetText($"{unit.Price}");

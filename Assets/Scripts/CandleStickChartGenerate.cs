@@ -42,12 +42,10 @@ public class CandleStickChartGenerate : MonoBehaviour
     }
     private void OnEnable()
     {
-        nextDayEvent.nextDay += AdvanceGraph;
         globalStatus.IdChanged += SetVisibleCandleCount;
     }
     private void OnDisable()
     {
-        nextDayEvent.nextDay -= AdvanceGraph;
         globalStatus.IdChanged -= SetVisibleCandleCount;
     }
 
@@ -56,6 +54,7 @@ public class CandleStickChartGenerate : MonoBehaviour
     /// </summary>
     public void OnButton()
     {
+        AdvanceGraph();
         nextDayEvent.DoThing();
     }
 
