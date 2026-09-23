@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 
 public class NextDayEvent
 {
@@ -18,6 +17,5 @@ public class NextDayEvent
     public void DoThing()
     {
         nextDay?.Invoke();
-        UnityEngine.Debug.Log("a");
     }
 }
